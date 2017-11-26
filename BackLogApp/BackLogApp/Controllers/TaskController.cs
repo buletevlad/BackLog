@@ -32,8 +32,7 @@ namespace BackLogApp.Controllers
         {
             var model = new TaskViewModel();
             
-            return View(model);
-           
+            return View(model);  
         }
 
         // POST: Task/Create

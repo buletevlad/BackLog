@@ -13,15 +13,16 @@
 <div class="container tasks-container">
     <hr />
     <div>
-        <a href="@Url.Action("Create","Task",new { id = Model.Id})" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a>
+        <a href="@Url.Action("Create","Task",new { id = Model.Id})" class="btn btn-success" style="display:inline-block; padding:80px 90px"><i class="fa fa-plus" aria-hidden="true"></i></a>
     </div>
     @foreach (var item in Model.TaskList)
     {
         @item.Id @item.Label @item.Description @item.Status @item.CreatedDate @item.EditedDate
     }
+
+    <br />
+    <p>
+        <a href="@Url.Action("Index","BackLog")" class="btn btn-default">Back to list</a>
+    </p>
+
 </div>
-<p>
-    <a href="@Url.Action("Index","BackLog")" class="btn btn-default">Back to list</a>
-
-
-</p>

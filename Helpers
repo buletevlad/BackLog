@@ -1,0 +1,68 @@
+<!-- confirmation delete -->
+@Html.ConfirmationDanger("", "", "", @Url.Action("DeleteProject", "Project", new { id = Model.ProjectId }), null, new {@class = "fa fa-trash"})
+
+
+
+<!-- MODAL IN THE VIEW -->
+
+
+<a href="#" class="btn btn-primary" onclick="ShowEmployee(@item.EmployeeId)"><i></i>></a>
+
+<div class="modal fade" id="myModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<a href="#" class="close" data-dismiss="modal">&times;></a>
+				<h3 class="modal-title">Delete Employee</h3>
+			</div>
+			<div class="modal-body" id="myModalBodyDiv">
+				
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn-btn-default" data-dismiss="modal">Cancel></a>
+				<a href="#" class="btn-btn-success" onclick="ShowEmployee()">Confirm></a>
+				
+			</div>
+			
+		</div>
+	</div>
+	
+</div>
+
+<script type="text/javascript">
+	var ShowEmployee = function (empId)
+	{
+		
+// method 1 - both do the same thing
+		var url = "/Controller/ShowEmployee?EmployeeId="+empId;
+		$("#myModalBodyDiv").load(url,function(){
+		$("#myModal").modal("show");
+
+		})
+
+// method 2
+		$.ajax({
+			type:"POST",
+			url:"/Controller/ShowEmployee/" // method from controller that returns partialview
+			data: {EmployeeId : empId},
+			success: function (response)
+			{
+				$("#myModalBodyDiv").html(response);
+				$("#myModal").modal("show");
+				
+
+
+			}
+		})
+
+	}
+</script>
+
+<!-- IN CONTROLLER -->	
+
+public PartialViewResult ShowEmployee(int empId){
+	
+	var emp = Db.Employee.Find(empId);
+
+	return PartialView("_EmployeeInfo",emp);
+}
